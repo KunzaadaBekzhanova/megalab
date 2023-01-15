@@ -18,7 +18,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Component
 @RequiredArgsConstructor
 public class TokenFilter extends OncePerRequestFilter {
-
     private final TokenUtilities tokenUtilities;
     private final UserDetailsService userDetailsService;
     public static final String AUTHORIZATION_HEADER_PREFIX = "Bearer ";
