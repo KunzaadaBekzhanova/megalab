@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/megalab
+    username: mamatkadyruulu
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+app:
+  security:
+    token:
+      secret: youcannothashusbecausewehavestrongsecretkey
+      expires-after-days: 1
+server:
+  error:
+    include-message: always
+    include-stacktrace: always
+    include-binding-errors: always
+    include-exception: true

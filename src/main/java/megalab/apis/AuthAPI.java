@@ -1,15 +1,14 @@
 package megalab.apis;
 
+import jakarta.annotation.security.PermitAll;
 import lombok.RequiredArgsConstructor;
 import megalab.dtos.requests.AuthRequest;
 import megalab.dtos.requests.CreateUserRequest;
 import megalab.dtos.responses.AuthResponse;
 import megalab.services.AuthService;
 import megalab.services.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")

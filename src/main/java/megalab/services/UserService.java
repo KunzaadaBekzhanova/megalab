@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import megalab.dtos.UserDTO;
 import megalab.dtos.requests.CreateUserRequest;
 import megalab.dtos.responses.AuthResponse;
+import megalab.enums.Role;
 import megalab.exceptions.BadRequestException;
 import megalab.models.User;
 import megalab.repositories.UserRepo;
@@ -37,6 +38,7 @@ public class UserService {
                 .lastName(createUserRequest.lastName())
                 .nickname(createUserRequest.nickname())
                 .password(passwordEncoder.encode(createUserRequest.password()))
+                .role(Role.USER)
                 .build();
     }
 }
