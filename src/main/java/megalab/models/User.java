@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import megalab.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,11 +34,17 @@ public class User implements UserDetails {
 
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @OneToMany(mappedBy = "writer", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private List<News> newsList;
 
     @OneToMany(mappedBy = "commenter")
     private List<Comment> commentList;
+
+    @OneToMany
+    private List<News> likedNews;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
