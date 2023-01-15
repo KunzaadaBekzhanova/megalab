@@ -25,9 +25,11 @@ public interface NewsRepo extends JpaRepository<News, Long> {
     @Query("""
             select new megalab.dtos.responses.MainNewsResponse(
             n.id, n.newsCover, n.date, n.heading, n.shortDescription, (w is not null))
-            from News n left join n.writer w order by n.date desc
+            from News n left join n.writer w 
+            where w.nickname = ?1 and (case when ?2 = true then (w is not null) else true end)
+            order by n.date desc
             """)
-    Page<MainNewsResponse> findAllByUserNicknameAndCast(String nickname, Pageable pageable);
+    Page<MainNewsResponse> findAllByUserNicknameAndCast(String nickname, boolean likedOnly, Pageable pageable);
 
     @Query("""
             select new megalab.dtos.responses.NewsResponse(

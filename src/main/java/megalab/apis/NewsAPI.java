@@ -28,9 +28,10 @@ public class NewsAPI {
     // find all
     @GetMapping
     Page<MainNewsResponse> findAll(Authentication auth,
+                                   @RequestParam(required = false, defaultValue = "false") boolean likedOnly,
                                    @RequestParam(required = false) int page,
                                    @RequestParam(required = false) int size) {
-        return newsService.findAll(auth, PageRequest.of(page, size));
+        return newsService.findAll(auth, likedOnly, PageRequest.of(page, size));
     }
 
     // find by id

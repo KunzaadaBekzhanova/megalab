@@ -56,9 +56,9 @@ public class NewsService {
         return newsRepo.findById(newsId).orElseThrow(() -> new NotFoundException("News not found"));
     }
 
-    public Page<MainNewsResponse> findAll(Authentication auth, Pageable pageable) {
+    public Page<MainNewsResponse> findAll(Authentication auth, boolean likedOnly, Pageable pageable) {
         if (auth != null) {
-            return newsRepo.findAllByUserNicknameAndCast(auth.getName(), pageable);
+            return newsRepo.findAllByUserNicknameAndCast(auth.getName(), likedOnly, pageable);
         } else {
             return newsRepo.findAllAndCast(pageable);
         }
