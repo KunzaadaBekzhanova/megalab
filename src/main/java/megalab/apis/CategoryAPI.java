@@ -1,5 +1,6 @@
 package megalab.apis;
 
+import jakarta.annotation.security.PermitAll;
 import lombok.RequiredArgsConstructor;
 import megalab.dtos.requests.CategoryRequest;
 import megalab.dtos.responses.CategoryResponse;
@@ -11,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/categories")
 @RequiredArgsConstructor
+@PermitAll
 public class CategoryAPI {
 
     private final CategoryService categoryService;

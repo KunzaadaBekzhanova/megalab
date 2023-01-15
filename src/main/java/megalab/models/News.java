@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import megalab.dtos.responses.MainNewsResponse;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -32,6 +33,7 @@ public class News {
     private String shortDescription;
 
     // Текст новости
+    @Column(length = 10000)
     private String newsContent;
 
     private LocalDate date;

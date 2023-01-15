@@ -3,6 +3,7 @@ package megalab.services;
 import lombok.RequiredArgsConstructor;
 import megalab.dtos.Response;
 import megalab.dtos.requests.NewsRequest;
+import megalab.dtos.responses.CustomPage;
 import megalab.dtos.responses.FullNewsResponse;
 import megalab.dtos.responses.MainNewsResponse;
 import megalab.dtos.responses.NewsResponse;
@@ -10,14 +11,17 @@ import megalab.exceptions.NotFoundException;
 import megalab.models.News;
 import megalab.models.User;
 import megalab.repositories.CategoryRepo;
+import megalab.repositories.CustomNewsRepo;
 import megalab.repositories.NewsRepo;
 import megalab.repositories.UserRepo;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +30,7 @@ public class NewsService {
     private final UserRepo userRepo;
     private final NewsRepo newsRepo;
     private final CategoryRepo categoryRepo;
+    private final CustomNewsRepo customNewsRepo;
 
     public NewsResponse save(Authentication auth, NewsRequest newsRequest) {
         User user = userRepo.getByNickname(auth.getName());
@@ -56,12 +61,10 @@ public class NewsService {
         return newsRepo.findById(newsId).orElseThrow(() -> new NotFoundException("News not found"));
     }
 
-    public Page<MainNewsResponse> findAll(Authentication auth, boolean likedOnly, Pageable pageable) {
-        if (auth != null) {
-            return newsRepo.findAllByUserNicknameAndCast(auth.getName(), likedOnly, pageable);
-        } else {
-            return newsRepo.findAllAndCast(pageable);
-        }
+    public CustomPage<MainNewsResponse> findAll(Authentication auth, boolean likedOnly, PageRequest pageRequest) {
+        CustomPage<MainNewsResponse> result = customNewsRepo.findAllByUserNicknameAndCast(auth.getName(), likedOnly, pageRequest);
+        result.setCount(newsRepo.countNews(auth.getName(), likedOnly));
+        return result;
     }
 
     public Response deleteById(Long newsId) {

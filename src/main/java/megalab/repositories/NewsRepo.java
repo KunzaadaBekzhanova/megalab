@@ -1,10 +1,7 @@
 package megalab.repositories;
 
-import megalab.dtos.responses.MainNewsResponse;
 import megalab.dtos.responses.NewsResponse;
 import megalab.models.News;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -22,21 +19,10 @@ public interface NewsRepo extends JpaRepository<News, Long> {
             """)
     List<NewsResponse> findAllByUserNickname(String name);
 
-    @Query("""
-            select new megalab.dtos.responses.MainNewsResponse(
-            n.id, n.newsCover, n.date, n.heading, n.shortDescription, (w is not null))
-            from News n left join n.writer w 
-            where w.nickname = ?1 and (case when ?2 = true then (w is not null) else true end)
-            order by n.date desc
+    @Query(nativeQuery = true, value = """
+            select count(*) from news n
+            left join users u on n.id in (select uln.liked_news_id from users_liked_news uln where uln.user_id = u.id) and u.nickname = ?1
+            where case when ?2 then u.id is not null else true end
             """)
-    Page<MainNewsResponse> findAllByUserNicknameAndCast(String nickname, boolean likedOnly, Pageable pageable);
-
-    @Query("""
-            select new megalab.dtos.responses.NewsResponse(
-            n.id, n.newsCover, n.date, n.heading, n.shortDescription
-            )
-            from News n
-            order by n.date desc 
-            """)
-    Page<MainNewsResponse> findAllAndCast(Pageable pageable);
+    int countNews(String nickname, boolean trueOnly);
 }

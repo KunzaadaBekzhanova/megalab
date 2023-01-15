@@ -6,12 +6,14 @@ import megalab.dtos.responses.FileUploadResponse;
 import megalab.services.FileService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/file")
 @RequiredArgsConstructor
+@PreAuthorize("hasAuthority('USER')")
 public class FileAPI {
 
     private final FileService fileService;

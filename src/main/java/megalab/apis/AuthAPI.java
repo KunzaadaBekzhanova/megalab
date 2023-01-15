@@ -1,5 +1,6 @@
 package megalab.apis;
 
+import jakarta.annotation.security.PermitAll;
 import lombok.RequiredArgsConstructor;
 import megalab.dtos.requests.AuthRequest;
 import megalab.dtos.requests.CreateUserRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@PermitAll
 public class AuthAPI {
 
     private final AuthService authService;

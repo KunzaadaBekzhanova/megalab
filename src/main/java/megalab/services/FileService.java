@@ -64,7 +64,7 @@ public class FileService {
     public ResponseEntity<byte[]> download(String path) {
         FileInputStream fileInputStream = new FileInputStream(path);
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_TYPE, String.valueOf(tika.detect(fileInputStream)))
+//                .header(HttpHeaders.CONTENT_TYPE, String.valueOf(tika.detect(fileInputStream)))
                 .body(fileInputStream.readAllBytes());
     }
 }

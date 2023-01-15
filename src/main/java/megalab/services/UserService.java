@@ -9,16 +9,14 @@ import megalab.dtos.responses.GetProfileResponse;
 import megalab.enums.Role;
 import megalab.exceptions.BadRequestException;
 import megalab.models.User;
+import megalab.repositories.CustomNewsRepo;
 import megalab.repositories.NewsRepo;
 import megalab.repositories.UserRepo;
 import megalab.security.TokenUtilities;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
-import java.beans.Transient;
 
 @Service
 @RequiredArgsConstructor
