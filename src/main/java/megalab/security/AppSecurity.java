@@ -1,6 +1,7 @@
 package megalab.security;
 
 import lombok.SneakyThrows;
+import megalab.exceptions.NotFoundException;
 import megalab.repositories.UserRepo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,7 @@ public class AppSecurity {
 
     @Bean
     UserDetailsService userDetailsService(UserRepo userRepo) {
-        return userRepo::findByNickname;
+        return username -> userRepo.findByNickname(username)
+                .orElseThrow(() -> new NotFoundException(String.format("User with nickname = %s not found", username)));
     }
 }

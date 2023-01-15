@@ -26,6 +26,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // image path
+    private String image;
+
     private String firstName;
 
     private String lastName;
