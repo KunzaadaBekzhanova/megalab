@@ -12,7 +12,7 @@ spring:
 app:
   security:
     token:
-      secret: youcannothashusbecausewehavestrongsecretkey
+      secret: youcannothackusbecausewehavestrongsecretkey
       expires-after-days: 1
 server:
   error:
