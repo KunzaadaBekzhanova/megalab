@@ -24,5 +24,4 @@ public class CategoryAPI {
     CategoryResponse save(@RequestBody CategoryRequest categoryRequest) {
         return categoryService.save(categoryRequest);
     }
-
 }
