@@ -12,14 +12,12 @@ import megalab.models.User;
 import megalab.repositories.CategoryRepo;
 import megalab.repositories.NewsRepo;
 import megalab.repositories.UserRepo;
-import org.hibernate.annotations.NotFound;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
