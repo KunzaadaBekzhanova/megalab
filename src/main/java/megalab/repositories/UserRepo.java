@@ -28,4 +28,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
             where u.nickname = ?1
             """)
     boolean existsByNickname(String nickname);
+
+    User getByNickname(String name);
 }

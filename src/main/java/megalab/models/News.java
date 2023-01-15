@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -32,6 +34,8 @@ public class News {
 
     // Текст новости
     private String newsContent;
+
+    private LocalDate date;
 
     @ManyToMany(mappedBy = "newsList")
     private List<Category> categories;
