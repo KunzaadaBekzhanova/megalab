@@ -7,7 +7,11 @@ import lombok.SneakyThrows;
 import megalab.dtos.Response;
 import megalab.dtos.responses.FileUploadResponse;
 import megalab.exceptions.BadRequestException;
+import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,13 +19,16 @@ import java.io.*;
 import java.time.LocalDateTime;
 
 @Service
-@RequiredArgsConstructor
 @Getter
 @Setter
+@RequiredArgsConstructor
 public class FileService {
 
     @Value("${app.folder-path}")
     private String folderPath;
+
+    // this field used for to get Content-Type of file
+    private final Tika tika;
 
     // RECOMMEND to use AWS s3 or Google File Storage
     @SneakyThrows
@@ -51,5 +58,13 @@ public class FileService {
             );
         }
         return file.delete() ? new Response(path + " is deleted!") : new Response("Delete operation is failed.");
+    }
+
+    @SneakyThrows
+    public ResponseEntity<byte[]> download(String path) {
+        FileInputStream fileInputStream = new FileInputStream(path);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_TYPE, String.valueOf(tika.detect(fileInputStream)))
+                .body(fileInputStream.readAllBytes());
     }
 }
