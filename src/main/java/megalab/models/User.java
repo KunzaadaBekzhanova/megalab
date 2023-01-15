@@ -10,9 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -78,5 +76,23 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void addNews(News news) {
+        if (this.newsList == null) {
+            this.newsList = new ArrayList<>();
+        }
+        this.newsList.add(news);
+    }
+
+    public void addLikedNews(News news) {
+        if (this.likedNews == null) {
+            this.likedNews = new ArrayList<>();
+        }
+        this.likedNews.add(news);
+    }
+
+    public void removeFromLikedNews(News news) {
+        this.likedNews.remove(news);
     }
 }

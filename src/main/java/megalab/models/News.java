@@ -22,7 +22,7 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private User writer;
 
     // this field will be path of an image
@@ -37,7 +37,7 @@ public class News {
 
     private LocalDate date;
 
-    @ManyToMany(mappedBy = "newsList")
+    @ManyToMany(mappedBy = "newsList", cascade = CascadeType.MERGE)
     private List<Category> categories;
 
     @OneToMany(mappedBy = "news")
