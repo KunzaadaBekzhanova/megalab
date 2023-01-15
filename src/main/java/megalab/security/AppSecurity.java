@@ -24,6 +24,6 @@ public class AppSecurity {
 
     @Bean
     UserDetailsService userDetailsService(UserRepo userRepo) {
-        return username -> userRepo.findByNickname(username);
+        return userRepo::findByNickname;
     }
 }
