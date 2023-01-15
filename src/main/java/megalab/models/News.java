@@ -35,4 +35,7 @@ public class News {
 
     @ManyToMany(mappedBy = "newsList")
     private List<Category> categories;
+
+    @OneToMany(mappedBy = "news")
+    private List<Comment> commentList;
 }
