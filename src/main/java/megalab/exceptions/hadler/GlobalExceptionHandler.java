@@ -14,6 +14,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     ExceptionResponse handleException(Exception e) {
+        e.printStackTrace();
         return ExceptionResponse.builder()
                 .message(e.getMessage())
                 .build();

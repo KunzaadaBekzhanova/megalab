@@ -35,7 +35,7 @@ public class FileService {
     public FileUploadResponse uploadFile(MultipartFile file) {
         InputStream fileContent = file.getInputStream();
         byte[] buffer = new byte[1024];
-        String filePath = folderPath + LocalDateTime.now() + file.getOriginalFilename();
+        String filePath = folderPath + file.getOriginalFilename();
         File targetFile = new File(filePath);
         OutputStream outStream = new BufferedOutputStream(new FileOutputStream(targetFile));
         int read;
